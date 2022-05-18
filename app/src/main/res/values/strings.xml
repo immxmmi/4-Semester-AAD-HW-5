@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">News List</string>
+    <string name="app_title">News Reader</string>
+    <string name="pageTitle">Details</string>
+    <string name="general_error">General Error</string>
+    <string name="toast_message">%1$s was clicked.</string>
+    <string name="generate">Generate</string>
+    <string name="reload">reload</string>
+    <string name="Menu_2">reload</string>
+    <string name="setings_menu_title">Settings</string>
+    <string name="Menu_1">settings</string>
+</resources>
