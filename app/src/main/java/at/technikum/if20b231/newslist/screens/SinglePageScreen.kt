@@ -2,12 +2,9 @@ package at.technikum.if20b231.newslist.screens
 
 import android.content.Intent
 import android.net.Uri
-import android.widget.TextView
-import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
@@ -23,7 +20,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.text.HtmlCompat
 import androidx.navigation.NavController
 import at.technikum.if20b231.newslist.R
 import at.technikum.if20b231.newslist.handler.HtmlText
@@ -100,7 +96,7 @@ fun SinglePageScreen(page: Page) {
 
 
                 // HTML
-                page.descriptor?.let {
+                page.description?.let {
                     HtmlText(text = "$it")
                 }
 

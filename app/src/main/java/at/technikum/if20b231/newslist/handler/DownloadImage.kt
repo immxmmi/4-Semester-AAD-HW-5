@@ -20,9 +20,6 @@ class DownloadImage {
 
     private var imageView : ImageView? = null
 
-    private fun test( urlString: String){
-
-    }
 
     private suspend fun getImage() {
         val image = withContext(Dispatchers.IO) {

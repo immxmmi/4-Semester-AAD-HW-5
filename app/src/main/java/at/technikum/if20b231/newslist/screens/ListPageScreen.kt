@@ -6,7 +6,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -21,7 +20,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -57,7 +55,7 @@ fun PageItem(page: Page, navController: NavController) {
                             page.id.orEmpty(),
                             page.title.orEmpty(),
                             page.author.orEmpty(),
-                            page.descriptor
+                            page.description
                                 .orEmpty()
                                 .replace("/", "\\"),
                             page.pubDate.toString(),
@@ -129,7 +127,7 @@ fun PageItemNoImg(page: Page, navController: NavController) {
                             page.id.orEmpty(),
                             page.title.orEmpty(),
                             page.author.orEmpty(),
-                            page.descriptor
+                            page.description
                                 .orEmpty()
                                 .replace("/", "\\"),
                             page.pubDate.toString(),
@@ -195,7 +193,7 @@ fun PageFirstItem(page: Page, navController: NavController) {
                                 page.id.orEmpty(),
                                 page.title.orEmpty(),
                                 page.author.orEmpty(),
-                                page.descriptor
+                                page.description
                                     .orEmpty()
                                     .replace("/", "\\"),
                                 page.pubDate.toString(),
@@ -272,6 +270,10 @@ fun ShowListOfPages(navController: NavController, model: NewsListViewModel) {
     val imageShow by model.imageShow.observeAsState();
     val context = LocalContext.current
     var expanded by remember { mutableStateOf(false) }
+    //val pages by model.pageEnteries.observeAsState(listOf())
+
+
+
     NewsListTheme {
         Surface(color = MaterialTheme.colors.background) {
             Scaffold(

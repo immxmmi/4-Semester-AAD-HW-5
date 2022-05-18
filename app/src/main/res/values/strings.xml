@@ -9,4 +9,6 @@
     <string name="Menu_2">reload</string>
     <string name="setings_menu_title">Settings</string>
     <string name="Menu_1">settings</string>
+    <string name="no_data">no Data</string>
+    <string name="exists_already">Data exists already</string>
 </resources>

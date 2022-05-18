@@ -76,6 +76,7 @@ class XMLParser() {
         var pubDate: Date? = null
         var articleURL: String? = null
         var imageURL: String? = null
+        val keywords: MutableSet<String> = HashSet()
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.eventType != XmlPullParser.START_TAG) {
                 continue
@@ -83,6 +84,11 @@ class XMLParser() {
             when (parser.name) {
                 "guid" -> id = readId(parser)
                 "title" -> title = readTitle(parser)
+                "category" -> {
+                    val keyword = readBasicTag(parser, "category")?.trim()
+                    if (keyword != null)
+                        keywords.add(keyword)
+                }
                 "dc:creator" -> creator = readCreator(parser)
                 "link" -> articleURL = readLink(parser)
                 "description" -> description = readDescription(parser)
@@ -92,7 +98,7 @@ class XMLParser() {
             }
         }
 
-        return Page(id, title, creator, description,pubDate, imageURL,articleURL)
+        return Page(id, title, creator, description,pubDate, imageURL,articleURL,keywords)
     }
 
     // ID TAG
@@ -167,6 +173,46 @@ class XMLParser() {
 
         return link
     }
+
+    @Throws(IOException::class, XmlPullParserException::class)
+    private fun readBasicTag(parser: XmlPullParser, tag: String): String? {
+        parser.require(XmlPullParser.START_TAG, ns, tag)
+        val result = readText(parser)
+        parser.require(XmlPullParser.END_TAG, ns, tag)
+        return result
+    }
+
+    @Throws(IOException::class, XmlPullParserException::class)
+    private fun readMediaTag(parser: XmlPullParser): String? {
+        var url : String? = null
+        var image = false
+        var type : String? = null
+
+        parser.require(XmlPullParser.START_TAG, ns, "media:content")
+        for (i in 0 until parser.attributeCount) {
+            if (parser.getAttributeName(i) == "medium") {
+                if (parser.getAttributeValue(i) == "image") {
+                    image = true
+                }
+            }
+            if (parser.getAttributeName(i) == "url") {
+                url = parser.getAttributeValue(i)
+            }
+        }
+        while (parser.next() != XmlPullParser.END_TAG) {
+            if (parser.eventType != XmlPullParser.START_TAG) {
+                continue
+            }
+            when (parser.name) {
+                "media:keywords" -> type = readBasicTag(parser, "media:keywords")
+                else -> skip(parser)
+            }
+        }
+        return if (type == "headline" && image) url else null
+    }
+
+
+
 
     // Text TAG
     @Throws(IOException::class, XmlPullParserException::class)
