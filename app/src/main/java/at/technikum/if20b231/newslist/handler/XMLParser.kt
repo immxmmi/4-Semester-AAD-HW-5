@@ -2,6 +2,7 @@ package at.technikum.if20b231.newslist.handler
 
 import android.util.Xml
 import at.technikum.if20b231.newslist.modle.Page
+import kotlinx.datetime.Instant.Companion.fromEpochMilliseconds
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
@@ -75,7 +76,7 @@ class XMLParser() {
         var title: String? = null
         var creator: String? = null
         var description: String? = null
-        var pubDate: Date? = null
+        var pubDate: kotlinx.datetime.Instant? = null
         var articleURL: String? = null
         var imageURL: String? = null
         val keywords: MutableSet<String> = HashSet()
@@ -136,9 +137,11 @@ class XMLParser() {
 
     // DATE TAG
     @Throws(IOException::class, XmlPullParserException::class)
-    private fun readDate(parser: XmlPullParser): Date? {
+    private fun readDate(parser: XmlPullParser): kotlinx.datetime.Instant {
         parser.require(XmlPullParser.START_TAG, ns, "pubDate")
-        val date = formatter?.parse(readText(parser))
+        val date = kotlinx.datetime.Instant.fromEpochMilliseconds(
+            formatter?.parse(readText(parser))?.time ?: 0)
+
         parser.require(XmlPullParser.END_TAG, ns, "pubDate")
         return date
     }
