@@ -6,13 +6,14 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import at.technikum.if20b231.newslist.db.PageEntry
 import at.technikum.if20b231.newslist.modle.Page
 import at.technikum.if20b231.newslist.viewmodel.NewsListViewModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-private var formatter: DateFormat? = SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy")
+private var formatter: DateFormat? = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z",Locale.US)
 
 @Composable
 fun SetupNavGraph(navController: NavHostController, viewModel: NewsListViewModel) {
@@ -73,6 +74,17 @@ fun SetupNavGraph(navController: NavHostController, viewModel: NewsListViewModel
         ) { entry ->
 
             var date: Date? = formatter?.parse(entry.arguments?.getString("pubDate"))
+            var pageEntry = PageEntry(
+                entry.arguments?.getString("id")!!,
+                entry.arguments?.getString("title")!!,
+                entry.arguments?.getString("author"),
+                entry.arguments?.getString("description"),
+                entry.arguments?.getString("pubDate")!!,
+                entry.arguments?.getString("imageURL"),
+                entry.arguments?.getString("url"),
+                entry.arguments?.keySet()?.joinToString(",")
+            )
+
             var page = Page(
                 entry.arguments?.getString("id")!!,
                 entry.arguments?.getString("title")!!,
@@ -84,7 +96,7 @@ fun SetupNavGraph(navController: NavHostController, viewModel: NewsListViewModel
                 entry.arguments?.getString("url"),
                 entry.arguments?.keySet()
             )
-            ShowSinglePage(navController = navController, page)
+            ShowSinglePage(navController = navController, pageEntry)
         }
     }
 }

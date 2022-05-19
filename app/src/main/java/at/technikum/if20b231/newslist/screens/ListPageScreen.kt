@@ -25,14 +25,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import at.technikum.if20b231.newslist.R
-import at.technikum.if20b231.newslist.modle.Page
+import at.technikum.if20b231.newslist.db.PageEntry
 import at.technikum.if20b231.newslist.ui.theme.NewsListTheme
 import at.technikum.if20b231.newslist.viewmodel.NewsListViewModel
 import com.skydoves.landscapist.CircularReveal
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
-fun PageItem(page: Page, navController: NavController) {
+fun PageItem(page: PageEntry, navController: NavController) {
     var imageUrl by remember { mutableStateOf(page.imageURL) }
 
 
@@ -107,7 +107,7 @@ fun PageItem(page: Page, navController: NavController) {
 }
 
 @Composable
-fun PageItemNoImg(page: Page, navController: NavController) {
+fun PageItemNoImg(page: PageEntry, navController: NavController) {
     val context = LocalContext.current
     Row(
         modifier = Modifier
@@ -171,7 +171,7 @@ fun PageItemNoImg(page: Page, navController: NavController) {
 }
 
 @Composable
-fun PageFirstItem(page: Page, navController: NavController) {
+fun PageFirstItem(page: PageEntry, navController: NavController) {
     var imageUrl by remember { mutableStateOf(page.imageURL) }
 
 
@@ -266,11 +266,11 @@ fun PageFirstItem(page: Page, navController: NavController) {
 @Composable
 fun ShowListOfPages(navController: NavController, model: NewsListViewModel) {
 
-    val pages by model.load.observeAsState()
+    //val pages by model.load.observeAsState()
     val imageShow by model.imageShow.observeAsState();
     val context = LocalContext.current
     var expanded by remember { mutableStateOf(false) }
-    //val pages by model.pageEnteries.observeAsState(listOf())
+    val pages by model.pageEnteries.observeAsState(listOf())
 
 
 

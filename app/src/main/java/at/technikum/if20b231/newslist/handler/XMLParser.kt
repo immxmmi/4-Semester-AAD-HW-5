@@ -8,11 +8,13 @@ import java.io.IOException
 import java.io.InputStream
 import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.time.Instant
 import java.util.*
 
 class XMLParser() {
     private val ns: String? = null
-    private val formatter: DateFormat? = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz")
+    private val formatter: DateFormat? = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z",Locale.US)
+    //private val formatter: DateFormat? =  Instant.fromEpochMilliseconds(SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z",Locale.US))
 
     @Throws(XmlPullParserException::class, IOException::class)
     // Parser -> RETURN LIST OF PAGES

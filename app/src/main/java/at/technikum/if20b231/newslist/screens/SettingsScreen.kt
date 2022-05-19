@@ -30,9 +30,10 @@ fun SettingsScreen(navController: NavController, model: NewsListViewModel) {
     val imageDownload = remember { mutableStateOf(currentImageDownload) }
 
     BackHandler {
+        model.delete()
         model.updateImageShow(imageShow.value ?: true)
         model.updateUrl(url ?: "")
-       // model.reload()
+        model.reload()
         navController.navigateUp()
     }
 

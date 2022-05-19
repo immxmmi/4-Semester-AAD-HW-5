@@ -22,14 +22,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import at.technikum.if20b231.newslist.R
+import at.technikum.if20b231.newslist.db.PageEntry
 import at.technikum.if20b231.newslist.handler.HtmlText
-import at.technikum.if20b231.newslist.modle.Page
 import com.skydoves.landscapist.CircularReveal
 import com.skydoves.landscapist.glide.GlideImage
 
 
 @Composable
-fun SinglePageScreen(page: Page) {
+fun SinglePageScreen(page: PageEntry) {
     page.imageURL = page.imageURL.toString().replace("\\", "/")
     //var imageUrl by remember { mutableStateOf(page.imageURL) }
     val context = LocalContext.current
@@ -122,7 +122,7 @@ fun SinglePageScreen(page: Page) {
 }
 
 @Composable
-fun ShowSinglePage(navController: NavController, page: Page) {
+fun ShowSinglePage(navController: NavController, page: PageEntry) {
     SinglePageScreen(page)
 }
 

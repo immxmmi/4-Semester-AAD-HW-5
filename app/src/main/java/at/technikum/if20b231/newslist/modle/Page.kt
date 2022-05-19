@@ -1,7 +1,7 @@
 package at.technikum.if20b231.newslist.modle
 
 import java.util.*
-@kotlinx.serialization.Serializable
+
 data class Page(
         var id: String,
         var title: String,

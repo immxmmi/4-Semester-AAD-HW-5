@@ -40,9 +40,7 @@ class NewsListViewModel(application: Application) : AndroidViewModel(application
     init {
         pageEntryDao = ApplicationDatabase.getDatabase(application).entryDao()
         repository = Repository(pageEntryDao)
-
         reload()
-
     }
 
 
@@ -53,8 +51,6 @@ class NewsListViewModel(application: Application) : AndroidViewModel(application
     fun updateUrl(newUrl: String) {
         url.value = newUrl
     }
-
-
 
 
 
