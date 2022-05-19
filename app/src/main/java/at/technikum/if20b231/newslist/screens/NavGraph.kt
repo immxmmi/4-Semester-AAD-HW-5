@@ -74,14 +74,15 @@ fun SetupNavGraph(navController: NavHostController, viewModel: NewsListViewModel
 
             var date: Date? = formatter?.parse(entry.arguments?.getString("pubDate"))
             var page = Page(
-                entry.arguments?.getString("id"),
-                entry.arguments?.getString("title"),
+                entry.arguments?.getString("id")!!,
+                entry.arguments?.getString("title")!!,
                 entry.arguments?.getString("author"),
                 entry.arguments?.getString("description"),
                 date,
                 //formatter?.parse(date),
                 entry.arguments?.getString("imageURL"),
-                entry.arguments?.getString("url")
+                entry.arguments?.getString("url"),
+                entry.arguments?.keySet()
             )
             ShowSinglePage(navController = navController, page)
         }

@@ -57,7 +57,7 @@ class XMLParser() {
             }
             // ITEM
             if (parser.name == "item") {
-                entries.add(readItem(parser))
+                readItem(parser)?.let { entries.add(it) }
             } else {
                 skip(parser)
             }
@@ -67,7 +67,7 @@ class XMLParser() {
 
     // READ - ITEM
     @Throws(XmlPullParserException::class, IOException::class)
-    private fun readItem(parser: XmlPullParser): Page {
+    private fun readItem(parser: XmlPullParser): Page? {
         parser.require(XmlPullParser.START_TAG, ns, "item")
         var id: String? = null
         var title: String? = null
@@ -83,7 +83,7 @@ class XMLParser() {
             }
             when (parser.name) {
                 "guid" -> id = readId(parser)
-                "title" -> title = readTitle(parser)
+                "title" -> title = readTitle(parser)!!
                 "category" -> {
                     val keyword = readBasicTag(parser, "category")?.trim()
                     if (keyword != null)
@@ -98,7 +98,11 @@ class XMLParser() {
             }
         }
 
-        return Page(id, title, creator, description,pubDate, imageURL,articleURL,keywords)
+        return if (id == null || title == null || pubDate == null)
+            null
+        else{
+                   return Page(id, title, creator, description,pubDate, imageURL,articleURL,keywords)
+            }
     }
 
     // ID TAG
